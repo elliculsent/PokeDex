@@ -6,49 +6,18 @@
  * @description
  * # pokedexAppApp
  *
- * Factory of the application.
+ * Main module of the application.
  */
-/*angular
+angular
   .module('pokedexAppApp')
-  .factory('Pokemons', Pokemons);
+  .factory('PokeStore', function($http){
+    return {
+      getAll: function(callback){
+        $http.get('../data/pokedex.json').success(callback);
+      },
 
-  Pokemons.$inject = ['$resource', '$q', '$http'];
-
-  function Pokemons($resource, $q, $http) {
-        var mobilRates = null;
-    
-        function LoadData() {
-            var defer = $q.defer();
-            $http.get('../data/pokedex.json').success(function (data) {
-                mobilRates = data;
-                defer.resolve();
-            });
-            return defer.promise;
-        }
-
-        return {
-            GetData: function () { return mobilRates ; },
-            LoadData:LoadData
-        };
-        /*var resourceUrl =  'api/fixtures/:id';
-        return $resource(resourceUrl, {}, {
-            'get': { method: 'GET', 
-                url: '/pokedex.json',
-                isArray: true,
-                transformResponse: function (data) { 
-                    data = angular.fromJson(data); 
-                    return data;
-                }
-            },
-            'update': { method:'PUT' },
-            'fetchSports': {
-                method: 'GET',
-                url: 'app/entities/dummy_data/sports.json',
-                isArray: false,
-                transformResponse: function (data) {
-                    data = angular.fromJson(data);
-                    return data;
-                }
-            }
-        });
-    }*/
+      getTypes:  function(callback){
+        $http.get('../data/types.json').success(callback);
+      }
+    };
+  });

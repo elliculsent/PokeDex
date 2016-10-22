@@ -96,3 +96,30 @@ body {
     border-color: #e5e5e5;
     color: #333;
 }
+
+.pokemon-list {
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.pokemon-type {
+    float: right;
+    position: absolute;
+    margin-top: -100px;
+    margin-left: 166px;
+}
+
+.type1 {
+    width: 20px;  
+    margin-bottom: 30px;
+}
+
+.label-fixed {
+    width: 60px;
+}
+
+.poke-name {
+    text-align: center;
+}
+

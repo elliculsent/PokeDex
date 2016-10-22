@@ -32,15 +32,66 @@ angular.module('pokedexAppApp')
         $scope.pokemons = data;
         
         for(let i=0; i<data.length; i++) {
-            console.log(data[i]);
+            var getType = [];
+            
+            if(data[i].type.length>0) { 
+                
+                for(let h=0; h<data[i].type.length; h++) {  
+                    let value = data[i].type[h];
+                    
+                    if(value==='毒') {
+                        getType.push('Poison');
+                    }else if(value==='地上') {
+                        getType.push('Ground');
+                    }else if(value==='水') {
+                        getType.push('Water');
+                    }else if(value==='飞行') {
+                        getType.push('Flight');
+                    }else if(value==='虫') {
+                        getType.push('Insect');
+                    }else if(value==='炎') {
+                        getType.push('Fire');
+                    }else if(value==='电') {
+                        getType.push('Electric');
+                    }else if(value==='幽灵') {
+                        getType.push('Ghost');
+                    }else if(value==='岩石') {
+                        getType.push('Rock');
+                    }else if(value==='冰') {
+                        getType.push('Ice');
+                    }else if(value==='草') {
+                        getType.push('Grass');
+                    }else if(value==='恶') {
+                        getType.push('Dark');
+                    }else if(value==='龙') {
+                        getType.push('Dragon');
+                    }else if(value==='妖精') {
+                        getType.push('Fairy');
+                    }else if(value==='钢') {
+                        getType.push('Steel');
+                    }else if(value==='冰') {
+                        getType.push('Ice');
+                    }else if(value==='妖精') {
+                        getType.push('Fairy');
+                    }else if(value==='一般') {
+                        getType.push('Normal');
+                    }else if(value==='妖精') {
+                        getType.push('Fairy');
+                    }
+
+                    data[i].etype = getType;
+                }
+            }
+            
+            console.log(data[i]); 
             $scope.pokemonData.push(data[i]);
         }
         
-        console.log($scope.pokemonData);
+        //console.log($scope.pokemonData);
     });
     
     PokeStore.getTypes(function(data) {
-        console.log(data);
+        //console.log(data);
         $scope.types=data;              
     });
     
@@ -90,30 +141,30 @@ angular.module('pokedexAppApp')
     $scope.orderByType = function (c, j, e) {
         $scope.eOrderByType = e;
         $scope.orderByTypeValues = [c, j];
-        console.log($scope.eOrderByType);
-        console.log($scope.orderByTypeValues);
     };
     
     $scope.filterByTypes = function(pm) {
-        var val=($scope.orderByTypeValues.indexOf(pm.type) !== -1);
-        console.log(pm, val);
-        return ($scope.orderByTypeValues.indexOf(pm.type) !== -1);
+        var val=($scope.orderByTypeValues.indexOf(pm.etype) !== -1);
+        console.log(pm);
+        console.log('val: ', val);
+        return ($scope.orderByTypeValues.indexOf(pm.etype) !== -1);
     };
     
-    /*$scope.search = function (pokemonData) {
+    $scope.searchType = function (pm) {
         
-        if ($scope.type === undefined || $scope.type.length === 0) {
+        if ($scope.etype === undefined || $scope.etype.length === 0) {
             return true;
         }
         
         var found = false;
-        angular.forEach(pokemonData.type, function (pm) {          
-            if (pm.type === parseInt($scope.type)) {
+        angular.forEach(pm.etype, function (pm) {          
+            if (pm.etype === $scope.eOrderByType) {
                 found = true;
             }
         });
         
+        console.log(found);
         return found;
-    };*/
+    };
     
   });
