@@ -4,7 +4,7 @@ This project is generated with [yo angular generator](https://github.com/yeoman/
 version 0.15.1.
 
 ## Download packages
-Run `npm install` to download node modules
+Run `npm install` to download node modules. <br/>
 Run `bower install` to download front end dependencies
 
 ### Build & development
