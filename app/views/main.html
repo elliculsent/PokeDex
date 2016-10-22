@@ -1,53 +1,8 @@
-<!--<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
-<table>
-    <tfoot>
-        <td colspan="6">
-            <div class="pagination pull-right">
-                <ul>
-                    <li ng-class="{disabled: currentPage == 0}">
-                        <a href ng-click="prevPage()">« Prev</a>
-                    </li>
-                    <li ng-repeat="n in range(pagedItems.length)"
-                        ng-class="{active: n == currentPage}"
-                    ng-click="setPage()">
-                        <a href ng-bind="n + 1">1</a>
-                    </li>
-                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-                        <a href ng-click="nextPage()">Next »</a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-    </tfoot>
-</table>-->
 <div class="row">
-    
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <div class="input-group">
-          <input type="text" class="form-control" ng-model="searchValue" placeholder="Search for...">
+          <input type="text" class="form-control" ng-model="searchValue" placeholder="Search for name...">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Search</button>
           </span>
         </div>
     </div>
@@ -60,7 +15,7 @@
     <div class="col-lg-2">
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Sort by {{sortByValue}}
+            Sort by: {{sortByValue}}
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -72,24 +27,47 @@
     <div class="col-lg-2">
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Order by {{eOrderByType}}
-            <span class="caret"></span>
+            Order by type: {{eOrderByType}}<span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="" ng-click="orderByType(type.cname, type.jname, type.ename)" ng-repeat="type in types">{{type.ename}}</a></li>
+            <li><a href="" ng-click="orderByType(type.cname, type.jname, type.ename)" ng-repeat="type in types | orderBy: type.ename">{{type.ename}}</a></li>
           </ul>
         </div>
     </div>
 </div>
-
-sortingOrder={{sortingOrder}} <br /><br />
-<div class="col-lg-3" ng-repeat="pm in pokemonData | filter:searchValue | filter: {pm: filterByTypes} | orderBy: sortingOrder: reverse">
-    <div class="panel panel-info"> 
-        <div class="panel-heading"> 
-            <h3 class="panel-title">{{pm.ename}}</h3> 
-        </div> 
-        <div class="panel-body"> 
-            <img class="pokemon-grid" ng-src="../images/img/{{pm.id + pm.ename}}.png" /> 
-        </div> 
+<br /><br />
+<div class="pokemon-list">
+    <div class="col-lg-3 pokemon-panel" ng-click="triggerChildDetails(pm.id)" ng-repeat="pm in pokemonData | filter:searchValue | filter: {etype: eOrderByType} | orderBy: sortingOrder: reverse">
+        <div class="panel panel-info"> 
+            <div class="panel-heading"> 
+                <h3 class="panel-title poke-name">{{pm.id}} {{pm.ename}}</h3> 
+            </div> 
+            <div class="panel-body"> 
+                <img class="pokemon-grid" ng-src="../images/img/{{pm.id + pm.ename}}.png"  err-src="../images/img/{{pm.id + pm.flatName}}.png" /> 
+                <div>
+                    <div class="pokemon-type">
+                        <div class="type1" ng-repeat="type in pm.etype">
+                            <span class="label label-default col-sm-12 label-fixed" ng-if="type=='Normal'">{{type}}</span>
+                            <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Grass'">{{type}}</span>
+                            <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Ground'">{{type}}</span>
+                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Fire'">{{type}}</span>
+                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Electric'">{{type}}</span>
+                            <span class="label label-warning col-sm-12 label-fixed" ng-if="type=='Poison'">{{type}}</span>
+                            <span class="label label-warning col-sm-12 label-fixed" ng-if="type=='Bug'">{{type}}</span>
+                            <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Flying'">{{type}}</span>
+                            <span class="label label-primary col-sm-12 label-fixed" ng-if="type=='Water'">{{type}}</span>
+                            <span class="label label-dark col-sm-12 label-fixed" ng-if="type=='Dark'">{{type}}</span>
+                            <span class="label label-dark col-sm-12 label-steel" ng-if="type=='Steel'">{{type}}</span>
+                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Dragon'">{{type}}</span>
+                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Ghost'">{{type}}</span>
+                            <span class="label label-steel col-sm-12 label-fixed" ng-if="type=='Rock'">{{type}}</span>
+                            <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Ice'">{{type}}</span>
+                            <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fairy'">{{type}}</span>
+                            <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fighting'">{{type}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
     </div>
 </div>
