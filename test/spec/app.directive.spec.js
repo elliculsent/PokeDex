@@ -1,0 +1,2 @@
+describe('App directive', function() {
+});
