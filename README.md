@@ -5,7 +5,7 @@ version 0.15.1.
 
 ## Download packages
 Run `npm install` to download node modules. <br/>
-Run `bower install` to download front end dependencies
+Run `bower install` to download front end dependencies.
 
 ### Build & development
 

@@ -1,0 +1,2 @@
+describe('Main application', function() {
+});

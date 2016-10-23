@@ -1,0 +1,2 @@
+describe('App factory', function() {
+});
