@@ -19,23 +19,11 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/:id?', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        controller: 'MainCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .factory('PokeStore', function($http){
-        return {
-          getAll: function(callback){
-            $http.get('../data/pokedex.json').success(callback);
-          },
-            
-          getTypes:  function(callback){
-            $http.get('../data/types.json').success(callback);
-          }
-        };
   });
