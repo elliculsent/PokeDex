@@ -98,9 +98,15 @@ body {
 }
 
 .pokemon-list {
+<<<<<<< HEAD
     height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
+=======
+    /*height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;*/
+>>>>>>> dev_branch
 }
 
 .pokemon-type {
@@ -117,9 +123,84 @@ body {
 
 .label-fixed {
     width: 60px;
+<<<<<<< HEAD
+=======
+    margin-bottom: 5px;
+>>>>>>> dev_branch
 }
 
 .poke-name {
     text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+.label-dark {
+    background-color: #333;
+}
+
+.label-steel {
+    background-color: #999;
+    width: 60px;
+}
+
+.label-pink {
+    background-color: #de5bce;    
+}
+
+.table tr {
+    cursor: pointer;
+}
+
+.label-head {
+    width: 600px;
+    margin-left: 250px;
+}
+
+.detail-pokemon-type {
+    float: right;
+    position: absolute;
+    margin-top: -145px;
+    margin-left: 260px;
+}
+
+.progress-bar-defense {
+    background-color: #5cb85c;
+}
+
+.progress-bar-speed {
+    background-color: #de5bc2;
+}
+
+.detail-pokemon-grid {
+    height: 75%;
+    width: 75%;
+    margin-left: 50px;
+}
+
+.detail-label-fixed {
+    width: 130px;
+    height: 30px;
+    padding: 0.6em .6em .3em;
+    font-size: 98%;
+    margin-right: 20px;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.detail-label-fixed-single {
+    width: 130px;
+    height: 30px;
+    padding: 0.6em .6em .3em;
+    font-size: 98%;
+    margin-right: 20px;
+    margin-left: 150px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.detail-sprite {
+    margin-left: 190px;
+}
+>>>>>>> dev_branch

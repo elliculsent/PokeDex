@@ -6,7 +6,11 @@
  * @description
  * # pokedexAppApp
  *
+<<<<<<< HEAD
  * Main module of the application.
+=======
+ * Directive for replacing images with the correct one.
+>>>>>>> dev_branch
  */
 angular
   .module('pokedexAppApp')
