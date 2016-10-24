@@ -98,15 +98,9 @@ body {
 }
 
 .pokemon-list {
-<<<<<<< HEAD
-    height: 600px;
-    overflow-y: auto;
-    overflow-x: hidden;
-=======
     /*height: 600px;
     overflow-y: auto;
     overflow-x: hidden;*/
->>>>>>> dev_branch
 }
 
 .pokemon-type {
@@ -123,18 +117,13 @@ body {
 
 .label-fixed {
     width: 60px;
-<<<<<<< HEAD
-=======
     margin-bottom: 5px;
->>>>>>> dev_branch
 }
 
 .poke-name {
     text-align: center;
 }
 
-<<<<<<< HEAD
-=======
 .label-dark {
     background-color: #333;
 }
@@ -203,4 +192,3 @@ body {
 .detail-sprite {
     margin-left: 190px;
 }
->>>>>>> dev_branch

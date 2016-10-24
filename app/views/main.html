@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<div class="row">
-    <div class="col-lg-2">
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="searchValue" placeholder="Search for...">
-          <span class="input-group-btn">
-          </span>
-=======
 <div ng-if="displayMain">
     <div class="row">
         <div class="col-lg-2">
@@ -44,7 +36,6 @@
                 <li><a href="" ng-click="orderByType(type.cname, type.jname, type.ename)" ng-repeat="type in types | orderBy: type.ename">{{type.ename}}</a></li>
               </ul>
             </div>
->>>>>>> dev_branch
         </div>
     </div>
     <br /><br />
@@ -130,46 +121,6 @@
             </div> 
         </div>
     </div>
-<<<<<<< HEAD
-    <div class="col-lg-2">
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Order by {{eOrderByType}}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="" ng-click="orderByType(type.cname, type.jname, type.ename)" ng-repeat="type in types | orderBy: type.ename:true">{{type.ename}}</a></li>
-          </ul>
-        </div>
-    </div>
-</div>
-<br /><br />
-<div class="pokemon-list">
-    <div class="col-lg-3" ng-repeat="pm in pokemonData | filter:searchValue | filter: {etype: eOrderByType} | orderBy: sortingOrder: reverse">
-        <div class="panel panel-info"> 
-            <div class="panel-heading"> 
-                <h3 class="panel-title poke-name">{{pm.id}} {{pm.ename}}</h3> 
-            </div> 
-            <div class="panel-body"> 
-                <img class="pokemon-grid" ng-src="../images/img/{{pm.id + pm.ename}}.png"  err-src="../images/img/{{pm.id + pm.flatName}}.png" /> 
-                <div>
-                    <div class="pokemon-type">
-                        <div class="type1" ng-repeat="type in pm.etype">
-                            <span class="label label-default col-sm-12 label-fixed" ng-if="type=='Normal'">{{type}}</span>
-                            <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Grass'">{{type}}</span>
-                            <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Ground'">{{type}}</span>
-                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Fire'">{{type}}</span>
-                            <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Electric'">{{type}}</span>
-                            <span class="label label-warning col-sm-12 label-fixed" ng-if="type=='Poison'">{{type}}</span>
-                            <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Insect'">{{type}}</span>
-                            <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Flight'">{{type}}</span>
-                            <span class="label label-primary col-sm-12 label-fixed" ng-if="type=='Water'">{{type}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        </div>
-=======
     <div class="col-lg-5">
         <div class="panel panel-info"> 
             <div class="panel-body"> 
@@ -214,6 +165,5 @@
         </div>
     </div>
     <div class="col-lg-1">
->>>>>>> dev_branch
     </div>
 </div>
