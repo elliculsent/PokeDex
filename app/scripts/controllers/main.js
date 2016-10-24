@@ -62,12 +62,13 @@ angular.module('pokedexAppApp')
                                 getType.push('Normal');
                             }else if(value==='格斗') {
                                 getType.push('Fighting');
+                            }else if(value==='超能') {
+                                getType.push('Psychic');
                             }
 
                             data[i].etype = getType;
                         }
                     }
-                    
                     break;
                 }
             }
