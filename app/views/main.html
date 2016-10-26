@@ -2,9 +2,54 @@
     <div class="row">
         <div class="col-lg-2">
         </div>
+           <!-- <div class="input-append">
+                <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">
+            <span class="add-on"><i class="icon-search"></i></span>
+            </div>
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
+                        <th class="name">Name&nbsp;<a ng-click="sort_by('name')"><i class="icon-sort"></i></a></th>
+                        <th class="description">Description&nbsp;<a ng-click="sort_by('description')"><i class="icon-sort"></i></a></th>
+                        <th class="field3">Field 3&nbsp;<a ng-click="sort_by('field3')"><i class="icon-sort"></i></a></th>
+                        <th class="field4">Field 4&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></i></a></th>
+                        <th class="field5">Field 5&nbsp;<a ng-click="sort_by('field5')"><i class="icon-sort"></i></a></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <td colspan="6">
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+                                <li ng-repeat="n in range(pagedItems.length)"
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                                <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.field3}}</td>
+                        <td>{{item.field4}}</td>
+                        <td>{{item.field5}}</td>
+                    </tr>
+                </tbody>
+            </table>-->
         <div class="col-lg-2">
             <div class="input-group">
-              <input type="text" class="form-control" ng-model="searchValue" placeholder="Search for name...">
+              <input type="text" class="form-control" ng-model="formData.searchValue" ng-change="search()" placeholder="Search for name...">
               <span class="input-group-btn">
               </span>
             </div>
@@ -37,8 +82,7 @@
               </ul>
             </div>
         </div>
-    </div>
-    <br /><br />
+    </div><br />
     <div class="row">
         <div class="col-lg-2">
         </div>
@@ -51,8 +95,27 @@
                         <th>Type</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat="pm in pokemonData | filter:searchValue | filter: {etype: eOrderByType} | orderBy: sortingOrder: reverse" ng-click="triggerChildDetails(pm.id)">
+                <tfoot>
+                    <td colspan="6">
+                        <div class="pagination pull-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+                                <li ng-repeat="n in range(pagedItems.length)"
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                                <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+                <tbody><!--| filter:searchValue | filter: {etype: eOrderByType}-->
+                    <tr ng-repeat="pm in pagedItems[currentPage] | orderBy: sortingOrder: reverse" ng-click="triggerChildDetails(pm.id)">
                         <td align="center" style="display:table-cell; vertical-align:middle">{{pm.id}}</td>
                         <td>
                             <img ng-src="../images/thm/{{pm.id + pm.ename}}.png"  err-src="../images/thm/{{pm.id + pm.flatName}}.png" /> 
@@ -89,82 +152,99 @@
         </div>
     </div>
 </div>
-<div class="row" ng-if="!displayMain">
-    
-    <h3><span class="label label-default col-sm-12 label-head"> {{pokemonDetail.ename}} #{{pokemonDetail.id}}</span></h3> 
-    <br /><br />
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-5">
-        <div class="panel panel-info"> 
-            <div class="panel-body"> 
-                <img class="detail-pokemon-grid" ng-src="../images/img/{{pokemonDetail.id + pokemonDetail.ename}}.png"  err-src="../images/img/{{pokemonDetail.id + pokemonDetail.flatName}}.png" /> <br />
-                <div ng-repeat="type in pokemonDetail.etype">
-                    <span class="label label-default col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Normal'">{{type}}</span>
-                    <span class="label label-success col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Grass'">{{type}}</span>
-                    <span class="label label-success col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ground'">{{type}}</span>
-                    <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fire'">{{type}}</span>
-                    <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Electric'">{{type}}</span>
-                    <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Poison'">{{type}}</span>
-                    <span class="label label-warning col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Bug'">{{type}}</span>
-                    <span class="label label-info col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Flying'">{{type}}</span>
-                    <span class="label label-primary col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Water'">{{type}}</span>
-                    <span class="label label-dark col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dark'">{{type}}</span>
-                    <span class="label label-dark col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Steel'">{{type}}</span>
-                    <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dragon'">{{type}}</span>
-                    <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ghost'">{{type}}</span>
-                    <span class="label label-steel col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Rock'">{{type}}</span>
-                    <span class="label label-info col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ice'">{{type}}</span>
-                    <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fairy'">{{type}}</span>
-                    <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fighting'">{{type}}</span>
-                    <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Psychic'">{{type}}</span>
-                </div> 
-            </div> 
+<div ng-if="!displayMain">
+    <div class="row">
+        <h2><span class="label label-default col-sm-12 label-head"> {{pokemonDetail.ename}} #{{pokemonDetail.id}}</span></h2> 
+        <br /><br />
+        <div class="col-lg-1">
         </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="panel panel-info"> 
-            <div class="panel-body"> 
-                <img class="detail-sprite" ng-src="../images/spr/{{pokemonDetail.id}}MS.png" /> <br />
-                HP
-                <div class="progress">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="255" style="width: {{pokemonDetail.base.HP/255*100}}%">
-                    <span class="sr-only">{{pokemonDetail.base.HP}}</span>
-                  </div>
-                </div>
-                 Attack
-                <div class="progress">
-                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="190" style="width: {{pokemonDetail.base.Attack/190*100}}%">
-                    <span class="sr-only">{{pokemonDetail.base.Attack}}</span>
-                  </div>
-                </div>
-                Defense 
-                <div class="progress">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="230" style="width: {{pokemonDetail.base.Defense/230*100}}%">
-                    <span class="sr-only">{{pokemonDetail.base.Defense}}</span>
-                  </div>
-                </div>
-                Special Attack
-                <div class="progress">
-                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="194" style="width: {{pokemonDetail.base['Sp.Atk']/194*100}}%">
-                    <span class="sr-only">{{pokemonDetail.base['Sp.Atk']}}</span>
-                  </div>
-                </div>
-                Special Defense
-                <div class="progress">
-                  <div class="progress-bar progress-bar-defense" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="230" style="width: {{pokemonDetail.base['Sp.Def']/230*100}}%">
-                    <span class="sr-only">{{pokemonDetail.base['Sp.Def']}}</span>
-                  </div>
-                </div>
-                 Speed
-                <div class="progress">
-                  <div class="progress-bar progress-bar-speed" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="180" style="width: {{pokemonDetail.base.Speed/180*100}}%">
-                    <span class="sr-only">20% Complete</span>
-                  </div>
+        <div class="col-lg-5">
+            <div class="panel panel-info"> 
+                <div class="panel-body"> 
+                    <img class="detail-pokemon-grid" ng-src="../images/img/{{pokemonDetail.id + pokemonDetail.ename}}.png"  err-src="../images/img/{{pokemonDetail.id + pokemonDetail.flatName}}.png" /> <br />
+                    <div ng-repeat="type in pokemonDetail.etype">
+                        <span class="label label-default col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Normal'">{{type}}</span>
+                        <span class="label label-success col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Grass'">{{type}}</span>
+                        <span class="label label-success col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ground'">{{type}}</span>
+                        <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fire'">{{type}}</span>
+                        <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Electric'">{{type}}</span>
+                        <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Poison'">{{type}}</span>
+                        <span class="label label-warning col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Bug'">{{type}}</span>
+                        <span class="label label-info col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Flying'">{{type}}</span>
+                        <span class="label label-primary col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Water'">{{type}}</span>
+                        <span class="label label-dark col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dark'">{{type}}</span>
+                        <span class="label label-dark col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Steel'">{{type}}</span>
+                        <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dragon'">{{type}}</span>
+                        <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ghost'">{{type}}</span>
+                        <span class="label label-steel col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Rock'">{{type}}</span>
+                        <span class="label label-info col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ice'">{{type}}</span>
+                        <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fairy'">{{type}}</span>
+                        <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Fighting'">{{type}}</span>
+                        <span class="label label-pink col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Psychic'">{{type}}</span>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="panel panel-info"> 
+                <div class="panel-body"> 
+                    <img class="detail-sprite" ng-src="../images/spr/{{pokemonDetail.id}}MS.png" /> <br />
+                    HP
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="255" style="width: {{pokemonDetail.base.HP/255*100}}%">
+                        <span class="sr-only">{{pokemonDetail.base.HP}}</span>
+                      </div>
+                    </div>
+                     Attack
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="190" style="width: {{pokemonDetail.base.Attack/190*100}}%">
+                        <span class="sr-only">{{pokemonDetail.base.Attack}}</span>
+                      </div>
+                    </div>
+                    Defense 
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="230" style="width: {{pokemonDetail.base.Defense/230*100}}%">
+                        <span class="sr-only">{{pokemonDetail.base.Defense}}</span>
+                      </div>
+                    </div>
+                    Special Attack
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="194" style="width: {{pokemonDetail.base['Sp.Atk']/194*100}}%">
+                        <span class="sr-only">{{pokemonDetail.base['Sp.Atk']}}</span>
+                      </div>
+                    </div>
+                    Special Defense
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-defense" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="230" style="width: {{pokemonDetail.base['Sp.Def']/230*100}}%">
+                        <span class="sr-only">{{pokemonDetail.base['Sp.Def']}}</span>
+                      </div>
+                    </div>
+                     Speed
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-speed" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="180" style="width: {{pokemonDetail.base.Speed/180*100}}%">
+                        <span class="sr-only">20% Complete</span>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-1">
+        </div>
     </div>
-    <div class="col-lg-1">
+    <div class="row">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Level Up Skills</h3>
+              </div>
+                <div class="panel-body"> 
+                    <div ng-repeat="skill in pokemonDetail.eskills">
+                        <h3>{{skill}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
