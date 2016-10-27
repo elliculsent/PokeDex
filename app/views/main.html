@@ -1,156 +1,109 @@
 <div ng-if="displayMain">
-    <div class="row">
-        <div class="col-lg-2">
-        </div>
-           <!-- <div class="input-append">
-                <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">
-            <span class="add-on"><i class="icon-search"></i></span>
+    <form name="formData">
+        <div class="row">
+            <div class="col-lg-2">
             </div>
-            <table class="table table-striped table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th class="id">Id&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
-                        <th class="name">Name&nbsp;<a ng-click="sort_by('name')"><i class="icon-sort"></i></a></th>
-                        <th class="description">Description&nbsp;<a ng-click="sort_by('description')"><i class="icon-sort"></i></a></th>
-                        <th class="field3">Field 3&nbsp;<a ng-click="sort_by('field3')"><i class="icon-sort"></i></a></th>
-                        <th class="field4">Field 4&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></i></a></th>
-                        <th class="field5">Field 5&nbsp;<a ng-click="sort_by('field5')"><i class="icon-sort"></i></a></th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <td colspan="6">
-                        <div class="pagination pull-right">
-                            <ul>
-                                <li ng-class="{disabled: currentPage == 0}">
-                                    <a href ng-click="prevPage()">« Prev</a>
-                                </li>
-                                <li ng-repeat="n in range(pagedItems.length)"
-                                    ng-class="{active: n == currentPage}"
-                                ng-click="setPage()">
-                                    <a href ng-bind="n + 1">1</a>
-                                </li>
-                                <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-                                    <a href ng-click="nextPage()">Next »</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tfoot>
-                <tbody>
-                    <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
-                        <td>{{item.field3}}</td>
-                        <td>{{item.field4}}</td>
-                        <td>{{item.field5}}</td>
-                    </tr>
-                </tbody>
-            </table>-->
-        <div class="col-lg-2">
-            <div class="input-group">
-              <input type="text" class="form-control" ng-model="formData.searchValue" ng-change="search()" placeholder="Search for name...">
-              <span class="input-group-btn">
-              </span>
+            <div class="col-lg-2">
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.searchValue" ng-change="search(formData.searchValue, 0)" placeholder="Search for name...">
+                  <span class="input-group-btn">
+                  </span>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="btn-group" role="group" aria-label="...">
-              <button id="btn1" type="button" class="btn btn-default" ng-class="newClass1" ng-click="sortOrder(1)">ASC</button>
-              <button id="btn2" type="button" class="btn btn-default" ng-class="newClass2"  ng-click="sortOrder(2)">DESC</button>
+            <div class="col-lg-2">
+                <div class="btn-group" role="group" aria-label="...">
+                  <button id="btn1" type="button" class="btn btn-default" ng-class="newClass1" ng-click="sortOrder(1)">ASC</button>
+                  <button id="btn2" type="button" class="btn btn-default" ng-class="newClass2"  ng-click="sortOrder(2)">DESC</button>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Sort by: {{sortByValue}}
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="" ng-click="sortBy('id')">ID</a></li>
-                <li><a href="" ng-click="sortBy('ename')">Name</a></li>
-              </ul>
+            <div class="col-lg-2">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Sort by: {{sortByValue}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="" ng-click="sortBy('id')">ID</a></li>
+                    <li><a href="" ng-click="sortBy('ename')">Name</a></li>
+                  </ul>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Order by type: {{eOrderByType}}<span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="" ng-click="orderByType(type.cname, type.jname, type.ename)" ng-repeat="type in types | orderBy: type.ename">{{type.ename}}</a></li>
-              </ul>
+            <div class="col-lg-2">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Order by type: {{eOrderByType}}<span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="" ng-click="search(type.ename, 1)" ng-repeat="type in types | orderBy: type.ename">{{type.ename}}</a></li>
+                  </ul>
+                </div>
             </div>
-        </div>
-    </div><br />
-    <div class="row">
-        <div class="col-lg-2">
-        </div>
-        <div class="pokemon-list col-lg-8">
-            <table class="table table-striped table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <td colspan="6">
-                        <div class="pagination pull-right">
-                            <ul>
-                                <li ng-class="{disabled: currentPage == 0}">
-                                    <a href ng-click="prevPage()">« Prev</a>
-                                </li>
-                                <li ng-repeat="n in range(pagedItems.length)"
-                                    ng-class="{active: n == currentPage}"
-                                ng-click="setPage()">
-                                    <a href ng-bind="n + 1">1</a>
-                                </li>
-                                <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-                                    <a href ng-click="nextPage()">Next »</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tfoot>
-                <tbody><!--| filter:searchValue | filter: {etype: eOrderByType}-->
-                    <tr ng-repeat="pm in pagedItems[currentPage] | orderBy: sortingOrder: reverse" ng-click="triggerChildDetails(pm.id)">
-                        <td align="center" style="display:table-cell; vertical-align:middle">{{pm.id}}</td>
-                        <td>
-                            <img ng-src="../images/thm/{{pm.id + pm.ename}}.png"  err-src="../images/thm/{{pm.id + pm.flatName}}.png" /> 
-                            {{pm.ename}}</td>
-                        <td>
-                            <div>
-                                <div class="type1" ng-repeat="type in pm.etype">
-                                    <span class="label label-default col-sm-12 label-fixed" ng-if="type=='Normal'">{{type}}</span>
-                                    <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Grass'">{{type}}</span>
-                                    <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Ground'">{{type}}</span>
-                                    <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Fire'">{{type}}</span>
-                                    <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Electric'">{{type}}</span>
-                                    <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Poison'">{{type}}</span>
-                                    <span class="label label-warning col-sm-12 label-fixed" ng-if="type=='Bug'">{{type}}</span>
-                                    <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Flying'">{{type}}</span>
-                                    <span class="label label-primary col-sm-12 label-fixed" ng-if="type=='Water'">{{type}}</span>
-                                    <span class="label label-dark col-sm-12 label-fixed" ng-if="type=='Dark'">{{type}}</span>
-                                    <span class="label label-dark col-sm-12 label-steel label-fixed" ng-if="type=='Steel'">{{type}}</span>
-                                    <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Dragon'">{{type}}</span>
-                                    <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Ghost'">{{type}}</span>
-                                    <span class="label label-steel col-sm-12 label-fixed" ng-if="type=='Rock'">{{type}}</span>
-                                    <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Ice'">{{type}}</span>
-                                    <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fairy'">{{type}}</span>
-                                    <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fighting'">{{type}}</span>
-                                    <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Psychic'">{{type}}</span>
-                                </div>
+        </div><br />
+        <div class="row">
+            <div class="pokemon-list col-lg-12">
+                <table class="table table-striped table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <td colspan="6" align="center">
+                            <div class="pagination">
+                                <ul>
+                                    <li ng-class="{disabled: currentPage == 0}">
+                                        <a href ng-click="prevPage()">« Prev</a>
+                                    </li>
+                                    <li ng-repeat="n in range(pagedItems.length)"
+                                        ng-class="{active: n == currentPage}"
+                                    ng-click="setPage()">
+                                        <a href ng-bind="n + 1">1</a>
+                                    </li>
+                                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                        <a href ng-click="nextPage()">Next »</a>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tfoot>
+                    <tbody><!--| filter:searchValue | filter: {etype: eOrderByType}-->
+                        <tr ng-repeat="pm in pagedItems[currentPage] | orderBy: sortingOrder: reverse" ng-click="triggerChildDetails(pm.id)">
+                            <td align="center" style="display:table-cell; vertical-align:middle">{{pm.id}}</td>
+                            <td>
+                                <img ng-src="../images/thm/{{pm.id + pm.ename}}.png"  err-src="../images/thm/{{pm.id + pm.flatName}}.png" /> 
+                                {{pm.ename}}</td>
+                            <td>
+                                <div>
+                                    <div class="type1" ng-repeat="type in pm.etype">
+                                        <span class="label label-default col-sm-12 label-fixed" ng-if="type=='Normal'">{{type}}</span>
+                                        <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Grass'">{{type}}</span>
+                                        <span class="label label-success col-sm-12 label-fixed" ng-if="type=='Ground'">{{type}}</span>
+                                        <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Fire'">{{type}}</span>
+                                        <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Electric'">{{type}}</span>
+                                        <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Poison'">{{type}}</span>
+                                        <span class="label label-warning col-sm-12 label-fixed" ng-if="type=='Bug'">{{type}}</span>
+                                        <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Flying'">{{type}}</span>
+                                        <span class="label label-primary col-sm-12 label-fixed" ng-if="type=='Water'">{{type}}</span>
+                                        <span class="label label-dark col-sm-12 label-fixed" ng-if="type=='Dark'">{{type}}</span>
+                                        <span class="label label-dark col-sm-12 label-steel label-fixed" ng-if="type=='Steel'">{{type}}</span>
+                                        <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Dragon'">{{type}}</span>
+                                        <span class="label label-danger col-sm-12 label-fixed" ng-if="type=='Ghost'">{{type}}</span>
+                                        <span class="label label-steel col-sm-12 label-fixed" ng-if="type=='Rock'">{{type}}</span>
+                                        <span class="label label-info col-sm-12 label-fixed" ng-if="type=='Ice'">{{type}}</span>
+                                        <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fairy'">{{type}}</span>
+                                        <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Fighting'">{{type}}</span>
+                                        <span class="label label-pink col-sm-12 label-fixed" ng-if="type=='Psychic'">{{type}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-lg-2">
-        </div>
-    </div>
+    </form>
 </div>
 <div ng-if="!displayMain">
     <div class="row">
@@ -173,7 +126,7 @@
                         <span class="label label-info col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Flying'">{{type}}</span>
                         <span class="label label-primary col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Water'">{{type}}</span>
                         <span class="label label-dark col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dark'">{{type}}</span>
-                        <span class="label label-dark col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Steel'">{{type}}</span>
+                        <span class="label label-steel col-sm-12" ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Steel'">{{type}}</span>
                         <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Dragon'">{{type}}</span>
                         <span class="label label-danger col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Ghost'">{{type}}</span>
                         <span class="label label-steel col-sm-12 " ng-class="pokemonDetail.etype.length>1? 'detail-label-fixed' : 'detail-label-fixed-single'" ng-if="type=='Rock'">{{type}}</span>
@@ -254,6 +207,7 @@
                           </span>
                         </div>&nbsp;&nbsp;
                     </span>
+                    <p ng-show="!pokemonDetail.levelUpSkill.length">No skills found for this pokemon.</p>
                 </div>
             </div>
         </div>
