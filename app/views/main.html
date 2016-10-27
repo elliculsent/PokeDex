@@ -234,17 +234,30 @@
     <div class="row">
         <div class="col-lg-1">
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-10">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Level Up Skills</h3>
               </div>
-                <div class="panel-body"> 
-                    <div ng-repeat="skill in pokemonDetail.eskills">
-                        <h3>{{skill}}</h3>
-                    </div>
+                <div class="panel-body details-align"> 
+                    <span ng-repeat="skill in pokemonDetail.levelUpSkill">
+                        <!--<h3 data-toggle="tooltip" data-placement="right" title="Hooray!"></h3>
+                        <a href="javascript:void(0)" data-toggle="tooltip" title="">{{skill.ename}}</a>-->
+                        &nbsp;<div class="tooltip-text">  {{skill.ename}} 
+                          <span class="tooltiptext">
+                            English Name: {{skill.ename}} <br />
+                            ID: {{skill.id}}<br />
+                            Type: {{skill.typeEname}}<br />
+                            Accuracy: {{skill.accuracy}}<br />
+                            Power Points: {{skill.pp}}<br />
+                            Power: {{skill.power}}<br />
+                          </span>
+                        </div>&nbsp;&nbsp;
+                    </span>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-1">
         </div>
     </div>
 </div>

@@ -9,103 +9,98 @@
  */
 angular.module('pokedexAppApp')
   .controller('MainCtrl', function ($filter, $scope, PokeStore, $location, $routeParams) {
+
+    PokeStore.getTypes(function(data) { 
+        $scope.types=data;            
+    });
+
+    $scope.findElement = function (arr, propName, propValue) {
+      for (var i=0; i < arr.length; i++)
+        if (arr[i][propName] == propValue)
+          return arr[i];
+
+      // will return undefined if not found; you could return a default instead
+    };
+
     $scope.getDetail = function () {
-        
-        PokeStore.getTypes(function(data) { 
-            $scope.types=data;            
-        });
-        
         PokeStore.getSkills(function(data) {
             $scope.skills = data;
-        });
-        
-        PokeStore.getAll(function(data) {
-            $scope.pokemons = data;
+            
+            PokeStore.getAll(function(data) {
+                $scope.pokemons = data;
 
-            for(let i=0; i<data.length; i++) {
-                var getType = [];
-                var getSkills = [];
+                for(let i=0; i<data.length; i++) {
+                    var getType = [];
 
-                if(data[i].id === $routeParams.id) {
-                    $scope.pokemonDetail = data[i];
+                    if(data[i].id === $routeParams.id) {
+                        $scope.pokemonDetail = data[i];
 
-                    //get array of types from types.json
-                    if(data[i].type.length>0) { 
+                        //get array of types from types.json
+                        if(data[i].type.length>0) { 
 
-                        for(let h=0; h<data[i].type.length; h++) {  
-                            let value = data[i].type[h];
-                            
-                            for(let j=0; j<$scope.types.length; j++) {  
-                                console.log(value+'==='+$scope.types[j].cname,value+'==='+$scope.types[j].jname);
-                                if(value===$scope.types[j].cname||value===$scope.types[j].jname) {
-                                    getType.push($scope.types[j].ename);
+                            for(let h=0; h<data[i].type.length; h++) {  
+                                let value = data[i].type[h];
+
+                                for(let j=0; j<$scope.types.length; j++) {  
+                                    if(value===$scope.types[j].cname||value===$scope.types[j].jname) {
+                                        getType.push($scope.types[j].ename);
+                                        break;
+                                    }
                                 }
                             }
-                            
-                            /*if(value==='毒') {
-                                getType.push('Poison');
-                            }else if(value==='地上') {
-                                getType.push('Ground');
-                            }else if(value==='水') {
-                                getType.push('Water');
-                            }else if(value==='飞行') {
-                                getType.push('Flying');
-                            }else if(value==='虫') {
-                                getType.push('Bug');
-                            }else if(value==='炎') {
-                                getType.push('Fire');
-                            }else if(value==='电') {
-                                getType.push('Electric');
-                            }else if(value==='幽灵') {
-                                getType.push('Ghost');
-                            }else if(value==='岩石') {
-                                getType.push('Rock');
-                            }else if(value==='冰') {
-                                getType.push('Ice');
-                            }else if(value==='草') {
-                                getType.push('Grass');
-                            }else if(value==='恶') {
-                                getType.push('Dark');
-                            }else if(value==='龙') {
-                                getType.push('Dragon');
-                            }else if(value==='妖精') {
-                                getType.push('Fairy');
-                            }else if(value==='钢') {
-                                getType.push('Steel');
-                            }else if(value==='一般') {
-                                getType.push('Normal');
-                            }else if(value==='格斗') {
-                                getType.push('Fighting');
-                            }else if(value==='超能') {
-                                getType.push('Psychic');
-                            }*/
 
+                            data[i].etype = getType;
                         }
-                        
-                        data[i].etype = getType;
-                    }
-                    
-                    //get array of skills from skills.json
-                    var level_up_skills = data[i].skills.level_up;
-                    if(level_up_skills.length>0) { 
-                        for(let h=0; h<level_up_skills.length; h++) {  
-                            let value = level_up_skills[h];
-                        
-                            for(let k=0; k<$scope.skills.length; k++) {
-                                
-                                if(value===$scope.skills[k].id) {
-                                    getSkills.push($scope.skills[k].ename);
+
+                        //get array of skills from skills.json
+                        //console.log(data[i].skills.level_up);
+                        console.log($scope.skills);
+                        var levelUpSkills = data[i].skills.level_up;
+                        if(levelUpSkills.length>0) { 
+                            var getSkills = [];
+                            for(let h=0; h<levelUpSkills.length; h++) {  
+                                let value = levelUpSkills[h];
+
+                                var skillsData = $scope.findElement($scope.skills, "id", value);
+                                console.log(skillsData);
+
+                                var result = $.grep(getSkills, function(e){ return e.id == value; });
+
+                                if (result.length == 0) {
+                                    getSkills.push(skillsData);
                                 }
+
+                                //get equivalent skills details
+                                /*for(let k=0; k<$scope.skills.length; k++) {
+
+                                    console.log(value+'==='+$scope.skills[k].id);
+                                    if(value===$scope.skills[k].id) {
+
+                                        //get english name of type
+                                        /*for(let j=0; j<$scope.types.length; j++) {  
+                                            if($scope.skills[k].type===$scope.types[j].cname||$scope.skills[k].type===$scope.types[j].jname) {
+                                                $scope.skills[k].typeEname = $scope.types[j].ename;
+                                                break;
+                                            }
+                                        }
+
+                                        getSkills.push($scope.skills[k]);
+                                        break;
+                                        //data[i].skills.level_up[h].ename = $scope.skills[k].ename;
+                                        //data[i].skills.level_up[h].ename=$scope.skills[k].ename;
+                                    }
+                                }*/
                             }
+
+                            data[i].levelUpSkill = getSkills;
                         }
 
-                        data[i].eskills = getSkills;
+                        console.log(data[i]);
+                        break;
                     }
-
-                    console.log(data[i]);
-                    break;
                 }
-            }
+            });
+            
         });
     };
     
@@ -189,7 +184,7 @@ angular.module('pokedexAppApp')
         $scope.itemsPerPage = 10;
         $scope.pagedItems = [];
         $scope.currentPage = 0;
-        $scope.items = [
+        /*$scope.items = [
         {"id":"1","name":"name 1","description":"description 1","field3":"field3 1","field4":"field4 1","field5 ":"field5 1"}, 
         {"id":"2","name":"name 2","description":"description 1","field3":"field3 2","field4":"field4 2","field5 ":"field5 2"}, 
         {"id":"3","name":"name 3","description":"description 1","field3":"field3 3","field4":"field4 3","field5 ":"field5 3"}, 
@@ -210,7 +205,7 @@ angular.module('pokedexAppApp')
         {"id":"18","name":"name 18","description":"description 1","field3":"field3 18","field4":"field4 18","field5 ":"field5 18"}, 
         {"id":"19","name":"name 19","description":"description 1","field3":"field3 19","field4":"field4 19","field5 ":"field5 19"}, 
         {"id":"20","name":"name 20","description":"description 1","field3":"field3 20","field4":"field4 20","field5 ":"field5 20"}
-    ];
+    ];*/
         
         var searchMatch = function (haystack, needle) {
             if (!needle) {
@@ -233,10 +228,12 @@ angular.module('pokedexAppApp')
             });*/
             
             $scope.filteredItems = $filter('filter')($scope.pokemonData, function (item) {
-                for(var attr in item) {
-                    if (searchMatch(item[attr], $scope.searchValue))
-                        return true;
-                }
+                    for(var attr in item) {
+                        if (searchMatch(item[attr], $scope.searchValue)) {
+                            return true;
+                        }
+                    }
+                //});
                 return false;
             });
             
@@ -309,8 +306,9 @@ angular.module('pokedexAppApp')
         };*/
 
         $scope.sortBy = function (newSortingOrder) {
-            if ($scope.sortingOrder == newSortingOrder)
+            if ($scope.sortingOrder === newSortingOrder) {
                 $scope.reverse = !$scope.reverse;
+            }
             
             $scope.sortingOrder = newSortingOrder;
 
